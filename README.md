@@ -1,8 +1,17 @@
-﻿# JpegToWord
+﻿## JpegToWord
 
-This is a small program that merges jpeg files into one docx document.
+This is a small program merging jpeg files into one Word document.
+Run console application, pass the paths to jpeg files as command line arguments and save docx file.
 
-Usage:
+
+
+### Usage:
+
+```
 cd .\JpegToWord\bin\Debug\netcoreapp3.1\
-Run dotnet JpegToWord.dll with paths to jpeg files as arguments
+```
+
+```
+dotnet JpegToWord.dll [paths to jpeg files]
+```
 
