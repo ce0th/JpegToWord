@@ -1,22 +1,18 @@
-﻿using System;
-using Spire.Doc;
+﻿using Spire.Doc;
 using Spire.Doc.Documents;
-using System.Drawing;
-using System.IO;
+using System;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace JpegToWord
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             var doc = new Document();
             var section = doc.AddSection();
-
             var intro = section.AddParagraph();
-
 
             for (int i = 0; i < args.Length; i++)
             {
@@ -24,10 +20,9 @@ namespace JpegToWord
                 intro.AppendText(list);
             }
 
-            intro.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Justify;
+            intro.Format.HorizontalAlignment = HorizontalAlignment.Justify;
             intro.Format.AfterSpacing = 15;
             intro.Format.BeforeSpacing = 20;
-
 
             foreach (var arg in args)
             {
@@ -50,7 +45,6 @@ namespace JpegToWord
             process.StartInfo.UseShellExecute = true;
             process.StartInfo.FileName = $"{path}//{filename}.docx";
             process.Start();
-
         }
     }
 }
