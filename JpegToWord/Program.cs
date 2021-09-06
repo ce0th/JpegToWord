@@ -12,13 +12,25 @@ namespace JpegToWord
 
         static void Main(string[] args)
         {
-
             var doc = new Document();
             var section = doc.AddSection();
 
+            var intro = section.AddParagraph();
+
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                var list = $"List of files:\nFile-{i + 1}: {args[0]}";
+                intro.AppendText(list);
+            }
+
+            intro.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Justify;
+            intro.Format.AfterSpacing = 15;
+            intro.Format.BeforeSpacing = 20;
+
+
             foreach (var arg in args)
             {
-
                 var paragraph = section.AddParagraph();
                 var image = paragraph.AppendPicture((byte[])(new ImageConverter()).ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
                 image.VerticalAlignment = ShapeVerticalAlignment.Center;
