@@ -1,9 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
+﻿using System.Drawing;
 using Spire.Doc;
 using Spire.Doc.Documents;
-
 
 namespace JpegToWord
 {
@@ -28,14 +25,13 @@ namespace JpegToWord
             {
                 var paragraph = section.AddParagraph();
                 var image = paragraph.AppendPicture(
-                    (byte[])new ImageConverter().ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
+                    (byte[]) new ImageConverter().ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
                 image.VerticalAlignment = ShapeVerticalAlignment.Center;
                 image.HorizontalAlignment = ShapeHorizontalAlignment.Center;
                 image.Width = 500;
                 image.Height = 500;
             }
         }
-
     }
 
     internal class Program
@@ -44,17 +40,17 @@ namespace JpegToWord
         {
             var doc = new Document();
 
-            DocCreator dc = new DocCreator();
+            var dc = new DocCreator();
             dc.CreateWordDoc(args, doc);
 
-            FilePathAndName file = new FilePathAndName();
+            var file = new FilePathAndName();
             var filename = file.GetFileName();
             var path = file.GetFilePath();
 
-            DocSaver saver = new DocSaver();
+            var saver = new DocSaver();
             saver.SaveDoc(doc, path, filename);
 
-            DocStarter starter = new DocStarter();
+            var starter = new DocStarter();
             starter.StartDocument(path, filename);
         }
     }
