@@ -1,20 +1,20 @@
-﻿using Spire.Doc;
-using Spire.Doc.Documents;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using Spire.Doc;
+using Spire.Doc.Documents;
 
 namespace JpegToWord
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var doc = new Document();
             var section = doc.AddSection();
             var intro = section.AddParagraph();
 
-            for (int i = 0; i < args.Length; i++)
+            for (var i = 0; i < args.Length; i++)
             {
                 var list = $"List of files:\nFile-{i + 1}: {args[0]}";
                 intro.AppendText(list);
@@ -27,7 +27,8 @@ namespace JpegToWord
             foreach (var arg in args)
             {
                 var paragraph = section.AddParagraph();
-                var image = paragraph.AppendPicture((byte[])(new ImageConverter()).ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
+                var image = paragraph.AppendPicture(
+                    (byte[]) new ImageConverter().ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
                 image.VerticalAlignment = ShapeVerticalAlignment.Center;
                 image.HorizontalAlignment = ShapeHorizontalAlignment.Center;
                 image.Width = 500;
@@ -41,9 +42,7 @@ namespace JpegToWord
 
             doc.SaveToFile($"{path}//{filename}.docx", FileFormat.Docx);
 
-            var process = new Process();
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.FileName = $"{path}//{filename}.docx";
+            var process = new Process {StartInfo = {UseShellExecute = true, FileName = $"{path}//{filename}.docx"}};
             process.Start();
         }
     }
