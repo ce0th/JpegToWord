@@ -4,13 +4,13 @@ using System.Drawing;
 using Spire.Doc;
 using Spire.Doc.Documents;
 
+
 namespace JpegToWord
 {
-    internal class Program
+    public class DocCreator
     {
-        private static void Main(string[] args)
+        public void CreateWordDoc(string[] args, Document doc)
         {
-            var doc = new Document();
             var section = doc.AddSection();
             var intro = section.AddParagraph();
 
@@ -28,22 +28,34 @@ namespace JpegToWord
             {
                 var paragraph = section.AddParagraph();
                 var image = paragraph.AppendPicture(
-                    (byte[]) new ImageConverter().ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
+                    (byte[])new ImageConverter().ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
                 image.VerticalAlignment = ShapeVerticalAlignment.Center;
                 image.HorizontalAlignment = ShapeHorizontalAlignment.Center;
                 image.Width = 500;
                 image.Height = 500;
             }
+        }
 
-            Console.WriteLine("Enter the output filename: ");
-            var filename = Console.ReadLine();
-            Console.WriteLine("Enter the path: ");
-            var path = Console.ReadLine();
+    }
 
-            doc.SaveToFile($"{path}//{filename}.docx", FileFormat.Docx);
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            var doc = new Document();
 
-            var process = new Process {StartInfo = {UseShellExecute = true, FileName = $"{path}//{filename}.docx"}};
-            process.Start();
+            DocCreator dc = new DocCreator();
+            dc.CreateWordDoc(args, doc);
+
+            FilePathAndName file = new FilePathAndName();
+            var filename = file.GetFileName();
+            var path = file.GetFilePath();
+
+            DocSaver saver = new DocSaver();
+            saver.SaveDoc(doc, path, filename);
+
+            DocStarter starter = new DocStarter();
+            starter.StartDocument(path, filename);
         }
     }
 }
