@@ -1,5 +1,4 @@
 ﻿using Spire.Doc;
-using System;
 
 namespace JpegToWord
 {
@@ -7,8 +6,6 @@ namespace JpegToWord
     {
         public static void MergeImagesIntoDoc(string[] images, string output, string filename)
         {
-            Console.WriteLine("Building doc with no header ...");
-
             Document doc = new Document();
             DocCreator dc = new DocCreator();
             dc.CreateWordDoc(images, doc);
@@ -22,8 +19,6 @@ namespace JpegToWord
 
         public static void MergeImagesIntoDocWithHeader(string[] images, string output, string filename, string header)
         {
-            Console.WriteLine("Building doc with header ...");
-
             Document doc = new Document();
             DocCreator dc = new DocCreator();
             dc.CreateWordDocWithHeader(images, doc, header);

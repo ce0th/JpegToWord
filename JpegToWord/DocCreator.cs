@@ -24,7 +24,7 @@ namespace JpegToWord
                 image.HorizontalAlignment = ShapeHorizontalAlignment.Center;
                 Image img = Image.FromFile(arg);
                 image.Width = 500;
-                image.Height = 500 * (img.Height / img.Width);
+                image.Height = 500 * (img.Width / img.Height);
             }
 
             Paragraph footer = section.AddParagraph();
@@ -78,7 +78,6 @@ namespace JpegToWord
                 image.Width = 500;
                 image.Height = 500 * (img.Height / img.Width);
             }
-
 
             Paragraph footer = section.AddParagraph();
 
