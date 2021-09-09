@@ -53,15 +53,18 @@ namespace JpegToWord
             Dictionary<string, string>? dictionary =
                 JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
 
-            for (int count = 0; count < dictionary.Count; count++)
+            if (dictionary != null)
             {
-                KeyValuePair<string, string> element = dictionary.ElementAt(count);
-                string key = element.Key;
-                string value = element.Value;
-                TextRange text = header.AppendText(key + ": " + value + "\n");
-                text.CharacterFormat.FontName = "Cambria";
-                text.CharacterFormat.FontSize = 14;
-                text.CharacterFormat.TextColor = Color.FromArgb(37, 40, 95);
+                for (int count = 0; count < dictionary.Count; count++)
+                {
+                    KeyValuePair<string, string> element = dictionary.ElementAt(count);
+                    string key = element.Key;
+                    string value = element.Value;
+                    TextRange text = header.AppendText(key + ": " + value + "\n");
+                    text.CharacterFormat.FontName = "Cambria";
+                    text.CharacterFormat.FontSize = 14;
+                    text.CharacterFormat.TextColor = Color.FromArgb(37, 40, 95);
+                }
             }
 
             foreach (string arg in args)
