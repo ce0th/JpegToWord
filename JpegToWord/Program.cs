@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Spire.Doc;
+using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
 using System.Linq;
-using Spire.Doc;
 
 namespace JpegToWord
 {
     internal class Program
     {
-        public static readonly List<string> ImageExtensions = new List<string> {".JPG", ".JPE", ".BMP", ".GIF", ".PNG"};
+        public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
 
         private static int Main(string[] args)
         {
@@ -111,7 +111,7 @@ namespace JpegToWord
 
             var doc = new Document();
             var dc = new DocCreator();
-            dc.CreateWordDoc(images, doc, header);
+            dc.CreateWordDocWithHeader(images, doc, header);
 
             var saver = new DocSaver();
             saver.SaveDoc(doc, output, filename);
