@@ -1,9 +1,6 @@
 ﻿## JpegToWord
 
-This is a small program merging jpeg files into one Word document.
-Run console application, pass the paths to jpeg files as command line arguments and save docx file.
-
-
+This is a console application merging image files into one Word document.
 
 ### Usage:
 
