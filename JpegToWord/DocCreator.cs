@@ -31,7 +31,7 @@ namespace JpegToWord
 
             for (int i = 0; i < args.Length; i++)
             {
-                string list = $"File-{i + 1}: {args[0]}";
+                string list = $"File-{i + 1}: {args[0]}\n";
                 footer.AppendText(list);
                 footer.Format.HorizontalAlignment = HorizontalAlignment.Justify;
                 footer.Format.AfterSpacing = 10;
