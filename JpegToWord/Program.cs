@@ -45,19 +45,40 @@ namespace JpegToWord
 
         public static void Execute(string[] images, string imageFolder, string output, string filename, string header)
         {
-            if (images.Length == 0)
-                Console.WriteLine("No images in args, checking imageFolder ...");
-            else
-                MergeImagesIntoDoc(images, output, filename);
-
-            if (string.IsNullOrEmpty(imageFolder))
+            if (string.IsNullOrEmpty(header))
             {
-                Console.WriteLine("imageFolder not provided ...");
+                Console.WriteLine("No Json path is provided ...");
+
+                if (images.Length == 0)
+                {
+                    Console.WriteLine("No images in arguments, checking imageFolder ...");
+
+                    if (string.IsNullOrEmpty(imageFolder))
+                    {
+                        Console.WriteLine("imageFolder not provided ...");
+                    }
+                    else
+                    {
+                        var filePaths = CheckImages(imageFolder);
+                        MergeImagesIntoDoc(filePaths, output, filename);
+                    }
+                }
+
+                else
+                {
+                    MergeImagesIntoDoc(images, output, filename);
+                }
             }
             else
             {
-                var filePaths = CheckImages(imageFolder);
-                MergeImagesIntoDoc(filePaths, output, filename);
+                if (string.IsNullOrEmpty(imageFolder) && images.Length > -0)
+                    MergeImagesIntoDocWithHeader(images, output, filename, header);
+
+                if (!string.IsNullOrEmpty(imageFolder) && images.Length == 0)
+                {
+                    var filePaths = CheckImages(imageFolder);
+                    MergeImagesIntoDocWithHeader(filePaths, output, filename, header);
+                }
             }
 
             if (string.IsNullOrEmpty(output))
@@ -65,28 +86,14 @@ namespace JpegToWord
             else if ((images.Length != 0 || !string.IsNullOrEmpty(imageFolder)) &&
                      !string.IsNullOrEmpty(output)) Console.WriteLine($"Output directory is  {output ?? "null"}");
 
-            if (string.IsNullOrEmpty(header))
-            {
-                Console.WriteLine("No Json path is provided ...");
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(imageFolder) && images.Length != 0)
-                    MergeImagesIntoDoc(images, output, filename, header);
-
-                if (!string.IsNullOrEmpty(imageFolder) && images.Length == 0)
-                {
-                    var filePaths = CheckImages(imageFolder);
-                    MergeImagesIntoDoc(filePaths, output, filename, header);
-                }
-            }
-
             if (images.Length == 0 && string.IsNullOrEmpty(imageFolder))
                 Console.WriteLine("No images were provided! Exiting ...");
         }
 
         public static void MergeImagesIntoDoc(string[] images, string output, string filename)
         {
+            Console.WriteLine("Building doc with no header ...");
+
             var doc = new Document();
             var dc = new DocCreator();
             dc.CreateWordDoc(images, doc);
@@ -98,8 +105,10 @@ namespace JpegToWord
             starter.StartDocument(output, filename);
         }
 
-        public static void MergeImagesIntoDoc(string[] images, string output, string filename, string header)
+        public static void MergeImagesIntoDocWithHeader(string[] images, string output, string filename, string header)
         {
+            Console.WriteLine("Building doc with header ...");
+
             var doc = new Document();
             var dc = new DocCreator();
             dc.CreateWordDoc(images, doc, header);
