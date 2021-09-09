@@ -1,10 +1,13 @@
 using System.Diagnostics;
 
-public class DocStarter
+namespace JpegToWord
 {
-    public void StartDocument(string path, string filename)
+    public class DocStarter
     {
-        var process = new Process {StartInfo = {UseShellExecute = true, FileName = $"{path}//{filename}.docx"}};
-        process.Start();
+        public void StartDocument(string path, string filename)
+        {
+            Process process = new Process {StartInfo = {UseShellExecute = true, FileName = $"{path}//{filename}.docx"}};
+            process.Start();
+        }
     }
 }

@@ -1,9 +1,12 @@
 using Spire.Doc;
 
-public class DocSaver
+namespace JpegToWord
 {
-    public void SaveDoc(Document doc, string path, string filename)
+    public class DocSaver
     {
-        doc.SaveToFile($"{path}//{filename}.docx", FileFormat.Docx);
+        public void SaveDoc(Document doc, string path, string filename)
+        {
+            doc.SaveToFile($"{path}//{filename}.docx", FileFormat.Docx);
+        }
     }
 }

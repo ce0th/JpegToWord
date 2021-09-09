@@ -19,7 +19,7 @@ namespace JpegToWord
                 new Option<string>(
                     "--filename",
                     description: "Name for output Word file\n",
-                    getDefaultValue: () => $"MergedFile{DateTime.Now.ToString("yyMMddHHmmssff")}"
+                    getDefaultValue: () => $"MergedFile{DateTime.Now:yyMMddHHmmssff}"
                 ),
                 new Option<string>(
                     "--output",

@@ -56,9 +56,9 @@ namespace JpegToWord
             for (int count = 0; count < dictionary.Count; count++)
             {
                 KeyValuePair<string, string> element = dictionary.ElementAt(count);
-                string Key = element.Key;
-                string Value = element.Value;
-                TextRange text = header.AppendText(Key + ": " + Value + "\n");
+                string key = element.Key;
+                string value = element.Value;
+                TextRange text = header.AppendText(key + ": " + value + "\n");
                 text.CharacterFormat.FontName = "Cambria";
                 text.CharacterFormat.FontSize = 14;
                 text.CharacterFormat.TextColor = Color.FromArgb(37, 40, 95);
