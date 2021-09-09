@@ -1,5 +1,5 @@
-﻿using System;
-using Spire.Doc;
+﻿using Spire.Doc;
+using System;
 
 namespace JpegToWord
 {
@@ -9,14 +9,14 @@ namespace JpegToWord
         {
             Console.WriteLine("Building doc with no header ...");
 
-            var doc = new Document();
-            var dc = new DocCreator();
+            Document doc = new Document();
+            DocCreator dc = new DocCreator();
             dc.CreateWordDoc(images, doc);
 
-            var saver = new DocSaver();
+            DocSaver saver = new DocSaver();
             saver.SaveDoc(doc, output, filename);
 
-            var starter = new DocStarter();
+            DocStarter starter = new DocStarter();
             starter.StartDocument(output, filename);
         }
 
@@ -24,14 +24,14 @@ namespace JpegToWord
         {
             Console.WriteLine("Building doc with header ...");
 
-            var doc = new Document();
-            var dc = new DocCreator();
+            Document doc = new Document();
+            DocCreator dc = new DocCreator();
             dc.CreateWordDocWithHeader(images, doc, header);
 
-            var saver = new DocSaver();
+            DocSaver saver = new DocSaver();
             saver.SaveDoc(doc, output, filename);
 
-            var starter = new DocStarter();
+            DocStarter starter = new DocStarter();
             starter.StartDocument(output, filename);
         }
     }

@@ -20,7 +20,7 @@ namespace JpegToWord
                     }
                     else
                     {
-                        var filePaths = ImageUtil.CheckImages(imageFolder);
+                        string[] filePaths = ImageUtil.CheckImages(imageFolder);
                         MergeUtil.MergeImagesIntoDoc(filePaths, output, filename);
                     }
                 }
@@ -33,22 +33,31 @@ namespace JpegToWord
             else
             {
                 if (string.IsNullOrEmpty(imageFolder) && images.Length > -0)
+                {
                     MergeUtil.MergeImagesIntoDocWithHeader(images, output, filename, header);
+                }
 
                 if (!string.IsNullOrEmpty(imageFolder) && images.Length == 0)
                 {
-                    var filePaths = ImageUtil.CheckImages(imageFolder);
+                    string[] filePaths = ImageUtil.CheckImages(imageFolder);
                     MergeUtil.MergeImagesIntoDocWithHeader(filePaths, output, filename, header);
                 }
             }
 
             if (string.IsNullOrEmpty(output))
+            {
                 Console.WriteLine($"No output specified, saving to {output ?? "null"}");
+            }
             else if ((images.Length != 0 || !string.IsNullOrEmpty(imageFolder)) &&
-                     !string.IsNullOrEmpty(output)) Console.WriteLine($"Output directory is  {output ?? "null"}");
+                     !string.IsNullOrEmpty(output))
+            {
+                Console.WriteLine($"Output directory is  {output ?? "null"}");
+            }
 
             if (images.Length == 0 && string.IsNullOrEmpty(imageFolder))
+            {
                 Console.WriteLine("No images were provided! Exiting ...");
+            }
         }
     }
 }

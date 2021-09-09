@@ -8,7 +8,7 @@ namespace JpegToWord
     {
         private static int Main(string[] args)
         {
-            var rootCommand = new RootCommand
+            RootCommand rootCommand = new RootCommand
             {
                 new Option<string[]>(
                     "--images",
