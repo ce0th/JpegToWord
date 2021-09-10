@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 using Spire.Doc;
 using Spire.Doc.Documents;
@@ -24,7 +25,7 @@ namespace JpegToWord
                 image.HorizontalAlignment = ShapeHorizontalAlignment.Center;
                 Image img = Image.FromFile(arg);
                 image.Width = 500;
-                image.Height = 500 * (img.Width / img.Height);
+                image.Height = 500 * ((float)img.Height / (float)img.Width);
             }
 
             Paragraph footer = section.AddParagraph();
@@ -76,7 +77,7 @@ namespace JpegToWord
                 image.HorizontalAlignment = ShapeHorizontalAlignment.Center;
                 Image img = Image.FromFile(arg);
                 image.Width = 500;
-                image.Height = 500 * (img.Height / img.Width);
+                image.Height = 500 * ((float)img.Height / (float)img.Width);
             }
 
             Paragraph footer = section.AddParagraph();
