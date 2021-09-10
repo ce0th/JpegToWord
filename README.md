@@ -20,6 +20,7 @@ JpegToWord [options]
                                 [default: MergedFile{DateTime.Now:yyMMddHHmmssff}]
   --output <output>            Path to directory where the output Word will be created
                                 [default: C:\Users\...\...\Desktop]
+  --run <run>                  Specify true if want to run file after creation, default is false
   --header <header>            Specify path to your Json file
   --version                    Show version information
   -?, -h, --help               Show help and usage information
