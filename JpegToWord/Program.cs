@@ -27,12 +27,17 @@ namespace JpegToWord
                     getDefaultValue: () => Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
                 ),
                 new Option<string>(
+                    "--run",
+                    "Specify true if want to run file after creation, default is false"
+                ),
+                new Option<string>(
                     "--header",
                     "Specify path to your Json file")
             };
 
             rootCommand.Description = "Console App to merge image files into one Word document";
-            rootCommand.Handler = CommandHandler.Create<string[], string, string, string, string>(Invoker.Execute);
+            rootCommand.Handler =
+                CommandHandler.Create<string[], string, string, string, string, string>(Invoker.Execute);
 
             return rootCommand.InvokeAsync(args).Result;
         }
