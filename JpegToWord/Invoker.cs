@@ -7,6 +7,8 @@ namespace JpegToWord
         public static void Execute(string[] images, string imageFolder, string output, string filename, string header,
             string run)
         {
+            
+
             if (images.Length == 0 && string.IsNullOrEmpty(imageFolder))
 
             {

@@ -8,6 +8,12 @@ namespace JpegToWord
     {
         private static int Main(string[] args)
         {
+            if (args.Length == 0)
+            {
+                Console.WriteLine(" Show help and usage information: -?, -h, --help  ");
+                return -1;
+            }
+
             RootCommand rootCommand = new RootCommand
             {
                 new Option<string[]>(
