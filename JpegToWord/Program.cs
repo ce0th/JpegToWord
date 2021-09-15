@@ -34,7 +34,13 @@ namespace JpegToWord
                 ),
                 new Option<string>(
                     "--run",
-                    "Specify true if want to run file after creation, default is false"
+                    description: "Specify true if want to run file after creation, default is false",
+                    getDefaultValue: () => null
+                ),
+                new Option<string>(
+                    "--spacing",
+                    description: "Specify spacing between images, default is 0",
+                    getDefaultValue: () => null
                 ),
                 new Option<string>(
                     "--header",
@@ -43,7 +49,7 @@ namespace JpegToWord
 
             rootCommand.Description = "Console App to merge image files into one Word document";
             rootCommand.Handler =
-                CommandHandler.Create<string[], string, string, string, string, string>(Invoker.Execute);
+                CommandHandler.Create<string[], string, string, string, string, string, string>(Invoker.Execute);
 
             return rootCommand.InvokeAsync(args).Result;
         }

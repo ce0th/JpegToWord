@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace JpegToWord
 {
-    internal static class ImageUtil
+    internal static class ImageValidator
     {
         public static readonly List<string> ImageExtensions = new List<string>
         {
