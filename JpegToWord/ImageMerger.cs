@@ -34,7 +34,6 @@ namespace JpegToWord
                     Exit(-1);
                 }
 
-
                 string jsonString = File.ReadAllText(headerJson);
 
                 Dictionary<string, string> dictionary =
@@ -124,7 +123,7 @@ namespace JpegToWord
                 dataRow.Height = 20;
 
                 table.Rows[i].Cells[0].SetCellWidth(7, CellWidthType.Percentage);
-                table.Rows[i].Cells[1].SetCellWidth(90, CellWidthType.Percentage);
+                table.Rows[i].Cells[1].SetCellWidth(93, CellWidthType.Percentage);
 
                 Paragraph p1 = dataRow.Cells[0].AddParagraph();
                 Paragraph p2 = dataRow.Cells[1].AddParagraph();

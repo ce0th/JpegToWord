@@ -9,6 +9,7 @@ namespace JpegToWord
             string run = null, string spacing = null)
         {
             DocCreator docCreator = new DocCreator();
+
             if (images.Length == 0 && string.IsNullOrEmpty(imageFolder))
             {
                 Console.WriteLine("No images were provided, quitting ...");
