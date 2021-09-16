@@ -11,7 +11,7 @@ namespace JpegToWord
         {
             if (File.Exists(path + @"\" + filename + ".docx"))
             {
-                Console.WriteLine($"Filename {filename} already exist in the directory, quitting");
+                Console.WriteLine($"Filename '{filename}' already exist in the directory, quitting");
                 Exit(-1);
             }
             else

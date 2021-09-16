@@ -17,66 +17,13 @@ namespace JpegToWord
         {
             Section section = doc.AddSection();
 
-            if (!string.IsNullOrEmpty(headerJson))
-            {
-                Paragraph intro = section.AddParagraph();
-                intro.Format.HorizontalAlignment = HorizontalAlignment.Justify;
-                intro.Format.AfterSpacing = 10;
-                intro.Format.BeforeSpacing = 10;
-                intro.Format.LineSpacing = 9;
-                intro.Format.Borders.Bottom.BorderType = BorderStyle.Single;
-                intro.Format.Borders.Bottom.Space = 0.05f;
-                Console.WriteLine(headerJson + ".json");
+            AddHeader(section, headerJson);
+            AddImage(args, section, spacing);
+            AddTable(args, section);
+        }
 
-                if (!File.Exists(headerJson))
-                {
-                    Console.WriteLine("Unable to find json, check the path, quitting");
-                    Exit(-1);
-                }
-
-                string jsonString = File.ReadAllText(headerJson);
-
-                Dictionary<string, string> dictionary =
-                    JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
-
-                if (dictionary != null)
-                {
-                    for (int count = 0; count < dictionary.Count; count++)
-                    {
-                        KeyValuePair<string, string> element = dictionary.ElementAt(count);
-                        string key = element.Key;
-                        string value = element.Value;
-                        TextRange text = intro.AppendText(key + ": " + value + "\n");
-                        text.CharacterFormat.FontName = "Calibri";
-                        text.CharacterFormat.FontSize = 14;
-                        text.CharacterFormat.TextColor = Color.FromArgb(32, 32, 32);
-                    }
-                }
-            }
-
-            foreach (string arg in args)
-            {
-                Paragraph paragraph = section.AddParagraph();
-
-                if (File.Exists(arg))
-                {
-                    DocPicture image = paragraph.AppendPicture(
-                        (byte[])new ImageConverter().ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
-                    image.VerticalAlignment = ShapeVerticalAlignment.Center;
-                    image.HorizontalAlignment = ShapeHorizontalAlignment.Center;
-                    Image img = Image.FromFile(arg);
-                    image.Width = 500;
-                    image.Height = 500 * (img.Height / (float)img.Width);
-
-                    paragraph.Format.BeforeSpacing = StringParser.ParseStringToInt(spacing);
-                }
-                else
-                {
-                    Console.WriteLine($"Check the file path: {arg}, quitting");
-                    Exit(-1);
-                }
-            }
-
+        public void AddTable(string[] args, Section section)
+        {
             Paragraph tableTitle = section.AddParagraph();
             tableTitle.Format.AfterSpacing = 20;
             tableTitle.Format.BeforeSpacing = 10;
@@ -142,6 +89,72 @@ namespace JpegToWord
 
                 textRange1.CharacterFormat.TextColor = Color.FromArgb(33, 33, 33);
                 textRange2.CharacterFormat.TextColor = Color.FromArgb(33, 33, 33);
+            }
+        }
+
+        public void AddHeader(Section section, string headerJson)
+        {
+            if (string.IsNullOrEmpty(headerJson))
+            {
+                return;
+            }
+
+            Paragraph intro = section.AddParagraph();
+
+            intro.Format.HorizontalAlignment = HorizontalAlignment.Justify;
+            intro.Format.AfterSpacing = 10;
+            intro.Format.BeforeSpacing = 10;
+            intro.Format.LineSpacing = 9;
+
+            if (!File.Exists(headerJson))
+            {
+                Console.WriteLine("Unable to find json, check the path, quitting");
+                Exit(-1);
+            }
+
+            string jsonString = File.ReadAllText(headerJson);
+
+            Dictionary<string, string> dictionary =
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
+
+            if (dictionary != null)
+            {
+                for (int count = 0; count < dictionary.Count; count++)
+                {
+                    KeyValuePair<string, string> element = dictionary.ElementAt(count);
+                    string key = element.Key;
+                    string value = element.Value;
+                    TextRange text = intro.AppendText(key + ": " + value + "\n");
+                    text.CharacterFormat.FontName = "Calibri";
+                    text.CharacterFormat.FontSize = 14;
+                    text.CharacterFormat.TextColor = Color.FromArgb(32, 32, 32);
+                }
+            }
+        }
+
+        public void AddImage(string[] args, Section section, string spacing = null)
+        {
+            foreach (string arg in args)
+            {
+                Paragraph paragraph = section.AddParagraph();
+
+                if (File.Exists(arg))
+                {
+                    DocPicture image = paragraph.AppendPicture(
+                        (byte[])new ImageConverter().ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
+                    image.VerticalAlignment = ShapeVerticalAlignment.Center;
+                    image.HorizontalAlignment = ShapeHorizontalAlignment.Center;
+                    Image img = Image.FromFile(arg);
+                    image.Width = 500;
+                    image.Height = 500 * (img.Height / (float)img.Width);
+
+                    paragraph.Format.BeforeSpacing = StringParser.ParseStringToInt(spacing);
+                }
+                else
+                {
+                    Console.WriteLine($"Check the file path: {arg}, quitting");
+                    Exit(-1);
+                }
             }
         }
     }

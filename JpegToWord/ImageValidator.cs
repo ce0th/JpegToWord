@@ -15,7 +15,7 @@ namespace JpegToWord
             //  ".PNG"
         };
 
-        public static string[] CheckImages(string imageFolder)
+        public static string[] IsImage(string imageFolder)
         {
             string[] filePaths = Directory.GetFiles(imageFolder);
 

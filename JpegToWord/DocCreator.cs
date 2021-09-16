@@ -9,8 +9,10 @@ namespace JpegToWord
             string spacing = null, string run = null)
         {
             Document doc = new Document();
+
             ImageMerger imageMerger = new ImageMerger();
             imageMerger.MergeImagesIntoDoc(images, doc, header, spacing);
+
             DocSaver saver = new DocSaver();
             saver.SaveDoc(doc, output, filename);
 

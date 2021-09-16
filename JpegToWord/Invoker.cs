@@ -22,7 +22,7 @@ namespace JpegToWord
             }
             else
             {
-                string[] filePaths = ImageValidator.CheckImages(imageFolder);
+                string[] filePaths = ImageValidator.IsImage(imageFolder);
                 docCreator.MergeImagesIntoDoc(filePaths, output, filename, header, spacing, run);
             }
         }
