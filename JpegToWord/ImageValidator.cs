@@ -6,7 +6,7 @@ namespace JpegToWord
 {
     internal static class ImageValidator
     {
-        public static readonly List<string> ImageExtensions = new List<string>
+        private static readonly List<string> ImageExtensions = new List<string>
         {
             ".JPG"
             //  ".JPE",

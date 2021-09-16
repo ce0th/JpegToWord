@@ -24,7 +24,7 @@ namespace JpegToWord
                     "Specify path to your folder containing incoming images"),
                 new Option<string>(
                     "--filename",
-                    description: "Name for output Word file",
+                    description: "Name for output Word file, don't add .docx to filename you specifying",
                     getDefaultValue: () => $"MergedFile{DateTime.Now:yyMMddHHmmssff}"
                 ),
                 new Option<string>(
