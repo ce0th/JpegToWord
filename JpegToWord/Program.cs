@@ -24,27 +24,26 @@ namespace JpegToWord
                     "Specify path to your folder containing incoming images"),
                 new Option<string>(
                     "--filename",
-                    description: "Name for output Word file\n",
+                    description: "Name for output Word file",
                     getDefaultValue: () => $"MergedFile{DateTime.Now:yyMMddHHmmssff}"
                 ),
                 new Option<string>(
                     "--output",
-                    description: "Path to directory where the output Word will be created\n",
+                    description: "Path to directory where the output Word will be created",
                     getDefaultValue: () => Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
                 ),
                 new Option<string>(
                     "--run",
-                    description: "Specify true if want to run file after creation, default is false",
-                    getDefaultValue: () => null
+                    "Specify true if want to run file after creation, default is false"
                 ),
                 new Option<string>(
                     "--spacing",
-                    description: "Specify spacing between images, default is 0",
-                    getDefaultValue: () => null
+                    "Specify spacing between images. Allowed value 0 - 100px, default is null"
                 ),
                 new Option<string>(
                     "--header",
-                    "Specify path to your Json file")
+                    "Specify path to your Json file, default is null"
+                )
             };
 
             rootCommand.Description = "Console App to merge image files into one Word document";

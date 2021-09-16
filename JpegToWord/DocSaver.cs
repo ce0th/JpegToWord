@@ -1,4 +1,7 @@
 using Spire.Doc;
+using System;
+using System.IO;
+using static System.Environment;
 
 namespace JpegToWord
 {
@@ -6,7 +9,15 @@ namespace JpegToWord
     {
         public void SaveDoc(Document doc, string path, string filename)
         {
-            doc.SaveToFile($"{path}//{filename}.docx", FileFormat.Docx);
+            if (File.Exists(path + @"\" + filename + ".docx"))
+            {
+                Console.WriteLine($"Filename {filename} already exist in the directory, quitting");
+                Exit(-1);
+            }
+            else
+            {
+                doc.SaveToFile($"{path}//{filename}.docx", FileFormat.Docx);
+            }
         }
     }
 }

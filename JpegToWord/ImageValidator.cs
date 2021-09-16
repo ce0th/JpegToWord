@@ -8,11 +8,11 @@ namespace JpegToWord
     {
         public static readonly List<string> ImageExtensions = new List<string>
         {
-            ".JPG",
-            ".JPE",
-            ".BMP",
-            ".GIF",
-            ".PNG"
+            ".JPG"
+            //  ".JPE",
+            //  ".BMP",
+            //  ".GIF",
+            //  ".PNG"
         };
 
         public static string[] CheckImages(string imageFolder)

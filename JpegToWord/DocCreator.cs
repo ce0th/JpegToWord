@@ -3,19 +3,18 @@ using System;
 
 namespace JpegToWord
 {
-    internal static class DocCreator
+    internal class DocCreator
     {
-        public static void MergeImagesIntoDoc(string[] images, string output, string filename, string header = null,
+        public void MergeImagesIntoDoc(string[] images, string output, string filename, string header = null,
             string spacing = null, string run = null)
         {
             Document doc = new Document();
-            ImageMerger dc = new ImageMerger();
-            dc.MergeImagesIntoDoc(images, doc, header, spacing);
-
+            ImageMerger imageMerger = new ImageMerger();
+            imageMerger.MergeImagesIntoDoc(images, doc, header, spacing);
             DocSaver saver = new DocSaver();
             saver.SaveDoc(doc, output, filename);
 
-            Console.WriteLine("Document was saved ...");
+            Console.WriteLine($"Document was saved to {output}\nfilename: {filename}");
 
             if (string.IsNullOrEmpty(run))
             {
