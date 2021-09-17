@@ -18,9 +18,9 @@ JpegToWord [options]
   --imageFolder <imageFolder>  Specify path to your folder containing incoming images
   --filename <filename>        Name for output Word file [default: MergedFile{DateTime.Now:yyMMddHHmmssff}]
   --output <output>            Path to directory where the output Word will be created [default: C:\Users\...\...\Desktop]
-  --run <run>                  Specify true if want to run file after creation [default: false]
-  --spacing <spacing>          Specify spacing between images [default: 0]
-  --header <header>            Specify path to your Json file
+  --run <run>                  Specify true if want to run file after creation, default is false
+  --spacing <spacing>          Specify spacing between images. Allowed value 0 - 100px, default is null
+  --header <header>            Specify path to your Json file, default is null
   --version                    Show version information
   -?, -h, --help               Show help and usage information
   ```
