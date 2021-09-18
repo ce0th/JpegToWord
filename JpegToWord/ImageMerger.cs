@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using Spire.Doc;
 using Spire.Doc.Documents;
 using Spire.Doc.Fields;
+using Spire.Doc.Interface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,13 +23,13 @@ namespace JpegToWord
             AddTable(args, section);
         }
 
-        public void AddTable(string[] args, Section section)
+        private static void AddTable(IReadOnlyList<string> args, Section section)
         {
             Paragraph tableTitle = section.AddParagraph();
             tableTitle.Format.AfterSpacing = 20;
             tableTitle.Format.BeforeSpacing = 10;
 
-            int fileCount = args.Length;
+            int fileCount = args.Count;
             TextRange title = tableTitle.AppendText($"Totally {fileCount} files:");
             title.CharacterFormat.FontName = "Calibri";
             title.CharacterFormat.TextColor = Color.FromArgb(32, 32, 32);
@@ -38,7 +39,7 @@ namespace JpegToWord
             Table table = section.AddTable(true);
 
             string[] header = {"#", "File path"};
-            table.ResetCells(args.Length + 1, header.Length);
+            table.ResetCells(args.Count + 1, header.Length);
 
             TableRow headerRow = table.Rows[0];
             headerRow.IsHeader = true;
@@ -63,7 +64,7 @@ namespace JpegToWord
                 textRange.CharacterFormat.Bold = true;
             }
 
-            for (int i = 0; i < args.Length; i++)
+            for (int i = 0; i < args.Count; i++)
             {
                 TableRow dataRow = table.Rows[i + 1];
 
@@ -92,7 +93,7 @@ namespace JpegToWord
             }
         }
 
-        public void AddHeader(Section section, string headerJson)
+        private static void AddHeader(ISection section, string headerJson)
         {
             if (string.IsNullOrEmpty(headerJson))
             {
@@ -132,7 +133,7 @@ namespace JpegToWord
             }
         }
 
-        public void AddImage(string[] args, Section section, string spacing = null)
+        private static void AddImage(IEnumerable<string> args, Section section, string spacing = null)
         {
             foreach (string arg in args)
             {
