@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace JpegToWord
 {
@@ -18,11 +19,23 @@ namespace JpegToWord
 
             if (string.IsNullOrEmpty(imageFolder))
             {
+                if (images.Length > 350)
+                {
+                    Console.WriteLine("Can't process more than 350 images, quitting ...");
+                    return;
+                }
+
                 string[] filePaths = ImageValidator.IsImage(null, images);
                 docCreator.MergeImagesIntoDoc(filePaths, output, filename, header, spacing, run);
             }
             else
             {
+                if (Directory.GetFiles(imageFolder, "*", SearchOption.TopDirectoryOnly).Length > 350)
+                {
+                    Console.WriteLine("Can't process more than 350 images, quitting ...");
+                    return;
+                }
+
                 string[] filePaths = ImageValidator.IsImage(imageFolder);
                 docCreator.MergeImagesIntoDoc(filePaths, output, filename, header, spacing, run);
             }
