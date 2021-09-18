@@ -18,7 +18,8 @@ namespace JpegToWord
 
             if (string.IsNullOrEmpty(imageFolder))
             {
-                docCreator.MergeImagesIntoDoc(images, output, filename, header, spacing, run);
+                string[] filePaths = ImageValidator.IsImage(null, images);
+                docCreator.MergeImagesIntoDoc(filePaths, output, filename, header, spacing, run);
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -15,12 +16,36 @@ namespace JpegToWord
             //  ".PNG"
         };
 
-        public static string[] IsImage(string imageFolder)
+        public static string[] IsImage(string imageFolder = null, string[] images = null)
         {
-            string[] filePaths = Directory.GetFiles(imageFolder);
+            if (!string.IsNullOrEmpty(imageFolder))
+            {
+                string[] filePaths = Directory.GetFiles(imageFolder);
 
-            return filePaths.Where(file => ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
-                .ToArray();
+                if (filePaths.Length != filePaths.Where(file => ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
+                    .ToArray().Length)
+                {
+                    Console.WriteLine("Some files in directory was not of image type so excluded from merge");
+                }
+
+                return filePaths.Where(file => ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
+                    .ToArray();
+            }
+
+            if (images != null)
+            {
+                if (images.Length != images.Where(file => ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
+                    .ToArray().Length)
+                {
+                    Console.WriteLine("Some files from images arguments was excluded from merge because are not of image type");
+                }
+
+                return images.Where(file => ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
+                    .ToArray();
+            }
+
+
+            return new string[] { };
         }
     }
 }

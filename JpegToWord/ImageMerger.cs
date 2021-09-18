@@ -119,9 +119,9 @@ namespace JpegToWord
 
             if (dictionary != null)
             {
-                for (int count = 0; count < dictionary.Count; count++)
+                for (int i = 0; i < dictionary.Count; i++)
                 {
-                    KeyValuePair<string, string> element = dictionary.ElementAt(count);
+                    KeyValuePair<string, string> element = dictionary.ElementAt(i);
                     string key = element.Key;
                     string value = element.Value;
                     TextRange text = intro.AppendText(key + ": " + value + "\n");
@@ -153,6 +153,7 @@ namespace JpegToWord
                 else
                 {
                     Console.WriteLine($"Check the file path: {arg}, quitting");
+
                     Exit(-1);
                 }
             }
