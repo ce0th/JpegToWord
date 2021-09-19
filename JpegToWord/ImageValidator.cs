@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -9,8 +8,7 @@ namespace JpegToWord
     {
         private static readonly List<string> ImageExtensions = new List<string>
         {
-            ".JPG"
-            //  ".JPE",
+            ".JPG", ".JPE"
             //  ".BMP",
             //  ".GIF",
             //  ".PNG"
@@ -26,7 +24,7 @@ namespace JpegToWord
                         ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
                     .ToArray().Length)
                 {
-                    Console.WriteLine("Some files in directory was not of image type so excluded from merge");
+                    //  Console.WriteLine("Some files in directory was not of image type so excluded from merge");
                 }
 
                 return filePaths.Where(file => ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
@@ -39,8 +37,8 @@ namespace JpegToWord
                     .Where(file => ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
                     .ToArray().Length)
                 {
-                    Console.WriteLine(
-                        "Some files from images arguments was excluded from merge because are not of image type");
+                    // Console.WriteLine(
+                    //     "Some files from images arguments was excluded from merge because are not of image type");
                 }
 
                 return images.Where(file => ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))

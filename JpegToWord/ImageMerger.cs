@@ -26,11 +26,14 @@ namespace JpegToWord
         private static void AddTable(IReadOnlyList<string> args, Section section)
         {
             Paragraph tableTitle = section.AddParagraph();
+
             tableTitle.Format.AfterSpacing = 20;
             tableTitle.Format.BeforeSpacing = 10;
 
             int fileCount = args.Count;
+
             TextRange title = tableTitle.AppendText($"Totally {fileCount} files:");
+
             title.CharacterFormat.FontName = "Calibri";
             title.CharacterFormat.TextColor = Color.FromArgb(32, 32, 32);
             title.CharacterFormat.FontSize = 12;
@@ -58,6 +61,7 @@ namespace JpegToWord
                 tableParagraph.Format.HorizontalAlignment = HorizontalAlignment.Left;
 
                 TextRange textRange = tableParagraph.AppendText(header[i]);
+
                 textRange.CharacterFormat.FontName = "Calibri";
                 textRange.CharacterFormat.FontSize = 12;
                 textRange.CharacterFormat.TextColor = Color.FromArgb(3, 116, 116);
@@ -76,11 +80,11 @@ namespace JpegToWord
                 Paragraph p1 = dataRow.Cells[0].AddParagraph();
                 Paragraph p2 = dataRow.Cells[1].AddParagraph();
 
-                TextRange textRange1 = p1.AppendText($"{i + 1}");
-                TextRange textRange2 = p2.AppendText(args[i]);
-
                 p1.Format.HorizontalAlignment = HorizontalAlignment.Left;
                 p2.Format.HorizontalAlignment = HorizontalAlignment.Justify;
+
+                TextRange textRange1 = p1.AppendText($"{i + 1}");
+                TextRange textRange2 = p2.AppendText(args[i]);
 
                 textRange1.CharacterFormat.FontName = "Calibri";
                 textRange2.CharacterFormat.FontName = "Calibri";
@@ -100,6 +104,12 @@ namespace JpegToWord
                 return;
             }
 
+            if (!File.Exists(headerJson))
+            {
+                Console.WriteLine("Unable to find json, check the path, quitting");
+                Exit(-1);
+            }
+
             Paragraph intro = section.AddParagraph();
 
             intro.Format.HorizontalAlignment = HorizontalAlignment.Justify;
@@ -107,33 +117,28 @@ namespace JpegToWord
             intro.Format.BeforeSpacing = 10;
             intro.Format.LineSpacing = 9;
 
-            if (!File.Exists(headerJson))
-            {
-                Console.WriteLine("Unable to find json, check the path, quitting");
-                Exit(-1);
-            }
-
             string jsonString = File.ReadAllText(headerJson);
 
             Dictionary<string, string> dictionary =
                 JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
 
-            if (dictionary != null)
+            if (dictionary == null)
             {
-                for (int i = 0; i < dictionary.Count; i++)
-                {
-                    KeyValuePair<string, string> element = dictionary.ElementAt(i);
-                    string key = element.Key;
-                    string value = element.Value;
-                    TextRange text = intro.AppendText(key + ": " + value + "\n");
-                    text.CharacterFormat.FontName = "Calibri";
-                    text.CharacterFormat.FontSize = 14;
-                    text.CharacterFormat.TextColor = Color.FromArgb(32, 32, 32);
-                }
+                return;
+            }
+
+            for (int i = 0; i < dictionary.Count; i++)
+            {
+                (string key, string value) = dictionary.ElementAt(i);
+
+                TextRange text = intro.AppendText(key + ": " + value + "\n");
+                text.CharacterFormat.FontName = "Calibri";
+                text.CharacterFormat.FontSize = 14;
+                text.CharacterFormat.TextColor = Color.FromArgb(32, 32, 32);
             }
         }
 
-        private static void AddImage(IEnumerable<string> args, Section section, string spacing = null)
+        private static void AddImage(IEnumerable<string> args, ISection section, string spacing = null)
         {
             foreach (string arg in args)
             {
@@ -145,7 +150,9 @@ namespace JpegToWord
                         (byte[])new ImageConverter().ConvertTo(Image.FromFile(@$"{arg}"), typeof(byte[])));
                     image.VerticalAlignment = ShapeVerticalAlignment.Center;
                     image.HorizontalAlignment = ShapeHorizontalAlignment.Center;
+
                     Image img = Image.FromFile(arg);
+
                     image.Width = 500;
                     image.Height = 500 * (img.Height / (float)img.Width);
 

@@ -5,9 +5,15 @@ namespace JpegToWord
 {
     internal static class Invoker
     {
-        public static void Execute(string[] images, string imageFolder, string output, string filename,
+        public static void Execute(
+            string[] images,
+            string imageFolder,
+            string output,
+            string filename,
             string header = null,
-            string run = null, string spacing = null)
+            string run = null,
+            string spacing = null
+        )
         {
             DocCreator docCreator = new DocCreator();
 

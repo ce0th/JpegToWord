@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace JpegToWord
@@ -8,6 +9,11 @@ namespace JpegToWord
         {
             Process process = new Process {StartInfo = {UseShellExecute = true, FileName = $"{path}//{filename}.docx"}};
             process.Start();
+
+            if (!process.Start())
+            {
+                Console.WriteLine("Couldn't find the process so it never ran");
+            }
         }
     }
 }
