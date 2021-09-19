@@ -14,7 +14,7 @@ namespace JpegToWord
 {
     public class ImageMerger
     {
-        public void MergeImagesIntoDoc(string[] args, Document doc, string headerJson = null, string spacing = null)
+        public static void MergeImagesIntoDoc(string[] args, Document doc, string headerJson = null, string spacing = null)
         {
             Section section = doc.AddSection();
 

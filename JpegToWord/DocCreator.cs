@@ -11,10 +11,10 @@ namespace JpegToWord
             Document doc = new Document();
 
             ImageMerger imageMerger = new ImageMerger();
-            imageMerger.MergeImagesIntoDoc(images, doc, header, spacing);
+            ImageMerger.MergeImagesIntoDoc(images, doc, header, spacing);
 
             DocSaver saver = new DocSaver();
-            saver.SaveDoc(doc, output, filename);
+            DocSaver.SaveDoc(doc, output, filename);
 
             Console.WriteLine($"Document was saved to {output}\nfilename: {filename}");
 
@@ -24,7 +24,7 @@ namespace JpegToWord
             }
 
             DocStarter starter = new DocStarter();
-            starter.StartDocument(output, filename);
+            DocStarter.StartDocument(output, filename);
         }
     }
 }
